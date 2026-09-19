@@ -10,8 +10,13 @@ app = Flask(__name__)
 # ##################################################################
 # Security Headers using Flask-Talisman
 # ##################################################################
-# This adds headers like Content-Security-Policy and X-Frame-Options
-talisman = Talisman(app)
+# This adds headers like Content-Security-Policy and X-Frame-Options.
+# Talisman also redirects plain HTTP to HTTPS, which is what we want behind
+# the TLS-terminating proxy used in deployment.  Local development, the BDD
+# suite and CI talk to the service over plain HTTP, so FORCE_HTTPS=false
+# disables only the redirect (the security headers stay enabled).
+force_https = os.getenv("FORCE_HTTPS", "true").lower() not in ("false", "0", "no")
+talisman = Talisman(app, force_https=force_https)
 
 # ##################################################################
 # CORS Policies

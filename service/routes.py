@@ -1,5 +1,5 @@
 from flask import jsonify, request, abort
-from service.models import Product, Category
+from service.models import Product, Category, DataValidationError
 from service.common import status
 from . import app
 
@@ -19,6 +19,17 @@ def list_products():
         products = Product.all()
     
     return jsonify([p.serialize() for p in products]), status.HTTP_200_OK
+
+@app.route("/products", methods=["POST"])
+def create_product():
+    """Create a new product in the catalog"""
+    product = Product()
+    try:
+        product.deserialize(request.get_json())
+    except DataValidationError:
+        abort(status.HTTP_400_BAD_REQUEST)
+    product.create()
+    return jsonify(product.serialize()), status.HTTP_201_CREATED
 
 @app.route("/products/<int:product_id>", methods=["GET"])
 def get_product(product_id):
