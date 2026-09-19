@@ -1,0 +1,21 @@
+# ---------------------------------------------------------------------------
+# Runtime dependencies -- imported by service/ and wsgi.py
+# ---------------------------------------------------------------------------
+Flask==3.1.3             # Flask app object and routing (service/__init__.py, routes.py)
+Flask-SQLAlchemy==3.1.1  # `db = SQLAlchemy()` and the Product model (service/models.py)
+Flask-Talisman==1.1.0    # security headers (service/__init__.py)
+Flask-Cors==6.0.5        # CORS policy (service/__init__.py)
+psycopg2-binary==2.9.13  # PostgreSQL driver for the deployed DATABASE_URI
+
+# ---------------------------------------------------------------------------
+# Test dependencies -- imported by tests/ and features/
+# ---------------------------------------------------------------------------
+factory-boy==3.3.3       # ProductFactory (tests/factories.py)
+Faker==40.39.0           # factory.Faker("text") in tests/factories.py
+pytest==9.1.1            # unit test runner (replaces nosetests)
+pytest-cov==7.1.0        # provides `pytest --cov=service`
+coverage==7.16.1         # coverage engine behind pytest-cov ([coverage:*] in setup.cfg)
+behave==1.3.3            # BDD runner for features/
+selenium==4.49.0         # imported by features/steps/web_steps.py (the @ui scenario)
+requests==2.34.2         # HTTP client used by features/steps/*.py
+flake8==7.3.0            # `flake8 .` lint step

@@ -4,7 +4,7 @@ from os import getenv
 
 BASE_URL = getenv("BASE_URL", "http://localhost:8080")
 
-@given('the following products')
+@given('the following products:')
 def step_impl(context):
     """ Delete all Products and load new ones """
     # Reset database

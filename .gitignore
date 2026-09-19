@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Test / coverage artifacts
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Local test database (Flask-SQLAlchemy puts relative SQLite files here)
+instance/
+*.db
+
+# Virtual environments
+venv/
+env/
+.venv/
